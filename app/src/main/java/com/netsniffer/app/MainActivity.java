@@ -313,5 +313,3 @@ public class MainActivity extends AppCompatActivity implements ProxyService.Serv
         return (int) (v * getResources().getDisplayMetrics().density);
     }
 }
-}
-}
