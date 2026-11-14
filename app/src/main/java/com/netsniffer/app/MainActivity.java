@@ -250,9 +250,10 @@ public class MainActivity extends AppCompatActivity implements ProxyService.Serv
 
     private String getLocalIp() {
         try {
-            for (java.net.InterfaceAddress ia :
+            for (java.net.NetworkInterface ni :
                     Collections.list(java.net.NetworkInterface.getNetworkInterfaces())) {
-                for (java.net.InetAddress addr : Collections.list(ia.getInetAddresses())) {
+                for (java.net.InterfaceAddress ia : Collections.list(ni.getInterfaceAddresses())) {
+                    java.net.InetAddress addr = ia.getAddress();
                     if (addr instanceof java.net.Inet4Address && !addr.isLoopbackAddress())
                         return addr.getHostAddress();
                 }

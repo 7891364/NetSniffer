@@ -291,8 +291,8 @@ public class ProxyService extends Service {
         String host = hostPort.split(":")[0];
         int port = hostPort.contains(":") ? Integer.parseInt(hostPort.split(":")[1]) : 443;
 
-        try (Socket target = new Socket()) {
-            target.connect(new InetSocketAddress(host, port), 10000);
+        try (Socket targetSocket = new Socket()) {
+            targetSocket.connect(new InetSocketAddress(host, port), 10000);
             client.getOutputStream().write("HTTP/1.1 200 Connection Established\r\n\r\n".getBytes());
             client.getOutputStream().flush();
 
@@ -301,7 +301,7 @@ public class ProxyService extends Service {
             int totalA = 0, totalB = 0;
 
             // 客户端 → 目标
-            final Socket targetRef = target;
+            final Socket targetRef = targetSocket;
             Thread t1 = new Thread(() -> {
                 try {
                     int n;
@@ -316,7 +316,7 @@ public class ProxyService extends Service {
             t1.start();
 
             int n;
-            while ((n = target.getInputStream().read(buf)) > 0) {
+            while ((n = targetSocket.getInputStream().read(buf)) > 0) {
                 totalB += n;
                 client.getOutputStream().write(buf, 0, n);
             }
