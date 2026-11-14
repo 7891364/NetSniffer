@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#1A2535</color>
+    <color name="surface">#1E2A3B</color>
+    <color name="accent">#7FC967</color>
+    <color name="text">#FFFFFFFF</color>
+    <color name="textDim">#88FFFFFF</color>
+    <color name="colorPrimary">@color/accent</color>
+    <color name="colorPrimaryDark">@color/bg</color>
+    <color name="colorPrimaryVariant">@color/bg</color>
+    <color name="colorOnPrimary">@color/bg</color>
+    <color name="colorSecondary">@color/accent</color>
+    <color name="colorSecondaryVariant">@color/accent</color>
+    <color name="colorOnSecondary">@color/bg</color>
+    <color name="colorError">#F47272</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorSurface">@color/surface</color>
+    <color name="colorOnSurface">@color/text</color>
+    <color name="colorBackground">@color/bg</color>
+    <color name="colorOnBackground">@color/text</color>
+</resources>

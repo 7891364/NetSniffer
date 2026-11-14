@@ -1,0 +1,31 @@
+name: Build APK
+on:
+  push:
+    branches: [main, netsniffer]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+      - name: Grant execute
+        run: chmod +x ./gradlew
+      - name: Gradle assemble
+        run: ./gradlew assembleRelease --no-daemon -g ~/.gradle
+      - name: Sign APK
+        run: |
+          mkdir -p keystore
+          keytool -genkey -v -keystore keystore/release.keystore \
+            -storepass aibox123 -keypass aibox123 \
+            -alias release -keyalg RSA -keysize 2048 -validity 3650 \
+            -dname "CN=NetSniffer, OU=Dev, O=Dev, L=City, ST=State, C=CN" 2>&1
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: NetSniffer-APK
+          path: app/build/outputs/apk/release/*.apk
